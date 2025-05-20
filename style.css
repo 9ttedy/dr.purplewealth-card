@@ -1,0 +1,211 @@
+/* الخلفية المتحركة */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+}
+
+.animated-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+        45deg, 
+        rgba(46, 204, 113, 0.1), 
+        rgba(142, 68, 173, 0.1), 
+        rgba(46, 204, 113, 0.1)
+    );
+    animation: gradientBG 8s ease infinite;
+    z-index: -1;
+}
+
+@keyframes gradientBG {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* بطاقة البطاقة - ثابتة في المنتصف */
+.card {
+    width: 320px;
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.9), rgba(142, 68, 173, 0.9));
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: white;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    animation: colorChange 6s infinite alternate;
+}
+
+@keyframes colorChange {
+    0% { background: rgba(46, 204, 113, 0.9); }
+    50% { background: rgba(142, 68, 173, 0.9); }
+    100% { background: rgba(46, 204, 113, 0.9); }
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.3),
+        rgba(255, 255, 255, 0)
+    );
+    transform: rotate(30deg);
+    animation: shine 3s infinite;
+    z-index: 0;
+}
+
+@keyframes shine {
+    0% { left: -50%; }
+    100% { left: 150%; }
+}
+
+/* تأثير الصورة */
+.img-container {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    transition: all 0.5s ease;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.img-container:hover .profile-img {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.img-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.img-container:hover::before {
+    opacity: 0.6;
+    transform: scale(1.2);
+}
+
+/* تأثير تلميع النصوص */
+.glow-text {
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.glow-text:hover {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    transform: scale(1.02);
+}
+
+h1 {
+    margin: 10px 0;
+    font-size: 26px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.bio {
+    font-size: 15px;
+    margin-bottom: 25px;
+    color: #e0e0e0;
+    line-height: 1.5;
+}
+
+/* الروابط */
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    z-index: 1;
+}
+
+.link {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: all 0.5s;
+}
+
+.link:hover::before {
+    left: 100%;
+}
+
+.link:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.link i {
+    font-size: 18px;
+}
+
+.link:active {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0.95);
+}
+
+/* للتكيف مع الشاشات الصغيرة */
+@media (max-width: 400px) {
+    .card {
+        width: 90%;
+        padding: 15px;
+    }
+}
